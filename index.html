@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Officer Assignment</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(166, 86, 246, 0.1) 2%, transparent 0%),
+                radial-gradient(circle at 75% 75%, rgba(102, 101, 241, 0.1) 2%, transparent 0%);
+            background-size: 60px 60px;
+        }
+
+        .container {
+            background-color: rgba(30, 30, 30, 0.8);
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #b0b0b0;
+            font-weight: 500;
+        }
+
+        select, button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            background-color: rgba(42, 42, 42, 0.8);
+            border: 2px solid #6665F1;
+            border-radius: 8px;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        select:focus, button:focus {
+            border-color: #A556F6;
+            box-shadow: 0 0 0 2px rgba(166, 86, 246, 0.3);
+            outline: none;
+        }
+
+        button {
+            background: linear-gradient(135deg, #6665F1, #A556F6);
+            cursor: pointer;
+            margin: 5px 0;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #A556F6, #6665F1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(166, 86, 246, 0.3);
+        }
+
+        button:disabled {
+            background: #cccccc;
+            border-color: #999999;
+            color: #666666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        #submit-button {
+            display: none;
+        }
+
+        .mailto-link {
+            margin-top: 20px;
+            word-break: break-word;
+            color: #6665F1;
+            font-size: 0.9rem;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        const emailData = {
+            Manikonda: {
+                Interview: {
+                    to: "emmadi.mahesh@wipro.com",
+                    cc: "security.manikonda@wipro.com,security.mk1@wipro.com,ASM.MKD.ext@wipro.com,hyderabad@sumeetdelta.com",
+                    message: "Dear Team,\n\nThis is regarding an interview to be conducted at the Manikonda location. Kindly confirm the arrangements.\n\nThanks & Regards,",
+                },
+                "Site Visit": {
+                    to: "emmadi.mahesh@wipro.com",
+                    cc: "security.manikonda@wipro.com,security.mk1@wipro.com,ASM.MKD.ext@wipro.com,hyderabad@sumeetdelta.com",
+                    message: "Dear Team,\n\nThis is to inform you about a planned site visit to the Manikonda location. Please ensure necessary arrangements.\n\nThanks & Regards,",
+                },
+                Training: {
+                    to: "emmadi.mahesh@wipro.com",
+                    cc: "security.manikonda@wipro.com,security.mk1@wipro.com,ASM.MKD.ext@wipro.com,hyderabad@sumeetdelta.com",
+                    message: "Dear Team,\n\nThis is to request training arrangements at the Manikonda location. Kindly provide the necessary support.\n\nThanks & Regards,",
+                },
+            },
+            Gopanpally: {
+                Interview: {
+                    to: "bhavyashree.rai@wipro.com",
+                    cc: "hyderabad@sumeetdelta.com",
+                    message: "Dear Team,\n\nThis is regarding an interview to be conducted at the Gopanpally location. Kindly confirm the arrangements.\n\nThanks & Regards,",
+                },
+                "Site Visit": {
+                    to: "bhavyashree.rai@wipro.com",
+                    cc: "hyderabad@sumeetdelta.com",
+                    message: "Dear Team,\n\nThis is to inform you about a planned site visit to the Gopanpally location. Please ensure necessary arrangements.\n\nThanks & Regards,",
+                },
+                Training: {
+                    to: "bhavyashree.rai@wipro.com",
+                    cc: "hyderabad@sumeetdelta.com",
+                    message: "Dear Team,\n\nThis is to request training arrangements at the Gopanpally location. Kindly provide the necessary support.\n\nThanks & Regards,",
+                },
+            },
+        };
+
+        function updateFields() {
+            const fieldOfficer = document.getElementById('field-officer').value;
+            const locationField = document.getElementById('location-field');
+            const purposeField = document.getElementById('purpose-field');
+            const submitButton = document.getElementById('submit-button');
+
+            if (fieldOfficer) {
+                locationField.style.display = 'block';
+            } else {
+                locationField.style.display = 'none';
+                purposeField.style.display = 'none';
+                submitButton.style.display = 'none';
+                document.getElementById('location').value = '';
+                document.getElementById('purpose').value = '';
+            }
+        }
+
+        function updatePurpose() {
+            const location = document.getElementById('location').value;
+            const purposeField = document.getElementById('purpose-field');
+
+            if (location) {
+                purposeField.style.display = 'block';
+            } else {
+                purposeField.style.display = 'none';
+                document.getElementById('purpose').value = '';
+            }
+        }
+
+        function updateSubmit() {
+            const purpose = document.getElementById('purpose').value;
+            const submitButton = document.getElementById('submit-button');
+
+            if (purpose) {
+                submitButton.style.display = 'block';
+                submitButton.textContent = purpose === 'Interview' ? 'Next' : 'Submit';
+            } else {
+                submitButton.style.display = 'none';
+            }
+        }
+
+        function handleSubmit() {
+            const fieldOfficer = document.getElementById('field-officer').value;
+            const location = document.getElementById('location').value;
+            const purpose = document.getElementById('purpose').value;
+
+            if (!fieldOfficer || !location || !purpose) return;
+
+            const emailInfo = emailData[location][purpose];
+            const fieldOfficerEmail = fieldOfficer === "Tirupathi Rao" ? "tirupathiraobaarnana@gmail.com" : "doivaddev@gmail.com";
+
+            // Force Gmail to open with the generated email
+            const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${emailInfo.to}&cc=${emailInfo.cc},${fieldOfficerEmail}&subject=${encodeURIComponent(purpose)}&body=${encodeURIComponent(emailInfo.message)}%0A%0AThanks & Regards,%0A${fieldOfficer}`;
+
+            const mailtoDisplay = document.getElementById('mailto-link');
+            mailtoDisplay.textContent = mailtoLink;
+            mailtoDisplay.href = mailtoLink;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Field Officer Assignment</h1>
+
+        <div class="form-group">
+            <label for="field-officer">Select Field Officer:</label>
+            <select id="field-officer" onchange="updateFields()">
+                <option value="">-- Select Field Officer --</option>
+                <option value="Tirupathi Rao">Tirupathi Rao</option>
+                <option value="Devi Das">Devi Das</option>
+            </select>
+        </div>
+
+        <div id="location-field" class="form-group" style="display: none;">
+            <label for="location">Select Location:</label>
+            <select id="location" onchange="updatePurpose()">
+                <option value="">-- Select Location --</option>
+                <option value="Manikonda">Manikonda</option>
+                <option value="Gopanpally">Gopanpally</option>
+            </select>
+        </div>
+
+        <div id="purpose-field" class="form-group" style="display: none;">
+            <label for="purpose">Select Purpose:</label>
+            <select id="purpose" onchange="updateSubmit()">
+                <option value="">-- Select Purpose --</option>
+                <option value="Interview">Interview</option>
+                <option value="Site Visit">Site Visit</option>
+                <option value="Training">Training</option>
+            </select>
+        </div>
+
+        <button id="submit-button" type="button" onclick="handleSubmit()">Submit</button>
+
+        <a id="mailto-link" class="mailto-link" href="#" target="_blank" style="display: block; margin-top: 20px;"></a>
+    </div>
+</body>
+</html>
